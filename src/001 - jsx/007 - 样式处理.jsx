@@ -7,7 +7,6 @@ import ReactDOM from 'react-dom'
  * ② style
  */
 
-// 2. 创建元素
 const box = (
   <div>
     {/* 
