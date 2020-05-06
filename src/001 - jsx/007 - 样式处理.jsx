@@ -6,7 +6,7 @@ import ReactDOM from 'react-dom'
  * ① class
  * ② style
  */
-
+ 
 const box = (
   <div>
     {/* 
