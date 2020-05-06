@@ -1,34 +1,22 @@
 /**
- * 再次封装：
+ *  继续封装：
  * 
- * 处理元素嵌套的问题
+ *  在上一次封装中，存在一个问题：
  * 
- * 目前 props 中的 children 属性是一个文本节点，
- * 那么如果在 children 属性中再次嵌套一个 props 属性如何处理？
+ *  我们渲染的 class，还是 className ，那么浏览器是不识别 className 属性的，
+ * 
+ *  所以我们在这里将 className 处理成 class
  */
 
 
 // 1、首先我们声明一个对象，对象里面有两个属性
 //    一个是 type，代表的是需要创建元素的标签
 //    一个是 props，代表的是需要创建的元素身上的一些属性
-// let obj = {
-//   type: 'div',
-//   props: {
-//     className: 'box',
-//     children: 'Tom and Jerry'
-//   }
-// }
-
 let obj = {
   type: 'div',
   props: {
-    children: {
-      type: 'p',
-      props: {
-        className: 'box',
-        children: 'Tom And Jerry And Spike'
-      }
-    }
+    className: 'box',
+    children: 'Tom and Jerry'
   }
 }
 
@@ -50,15 +38,8 @@ function render(element, container) {
     //    如果是 children 属性，需要将内容插入到元素中
     //    如果不是 children 属性，那么就是 className，将属性渲染到新创建的元素中
     if (attr === 'children') {
-      // 10、判断 children 属性值类型是否是字符型
-      //    如果是，直接插件到元素内部
-      //    如果不是，使用递归的方式调用 render 方法，继续解析
-      if (typeof props[attr] === 'string') {
-        let nodeText = document.createTextNode(props[attr])
-        ele.appendChild(nodeText)
-      } else {
-        render(props[attr], ele)
-      }
+      let nodeText = document.createTextNode(props[attr])
+      ele.appendChild(nodeText)
     } else if (attr === 'className') {
       // 9、判断如果 attr 是 className，那么需要将其处理成 class
       ele.setAttribute('class', props[attr])
